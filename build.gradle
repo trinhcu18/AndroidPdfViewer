@@ -1,0 +1,30 @@
+plugins {
+    id 'maven-publish'
+}
+
+group = 'io.github.trinhcu18'
+version = '1.0.0'  // Replace with your version
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            // Specify your artifact here if it's a JAR
+            artifact file('./android-pdf-viewer-3.2.0-beta.1.jar') {
+                extension 'jar'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/trinhcu18/my-java-library")  // Replace with your repo name
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+}
